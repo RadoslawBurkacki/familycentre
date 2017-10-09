@@ -35,6 +35,11 @@ public class UserController {
         return userService.register(newUser); // passing new user
     }
 
+    @RequestMapping("/hello")
+    public String sayhelo(){
+        return "hello";
+    }
+
 
 
 
