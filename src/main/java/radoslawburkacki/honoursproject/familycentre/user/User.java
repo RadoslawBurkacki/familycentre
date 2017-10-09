@@ -3,7 +3,10 @@ package radoslawburkacki.honoursproject.familycentre.user;
 import javax.persistence.*;
 
 @Entity
+@Table(name = "users")
 public class User {
+
+
 
     @Id
     @GeneratedValue
