@@ -1,5 +1,7 @@
 package radoslawburkacki.honoursproject.familycentre.user;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+
 import javax.persistence.*;
 
 @Entity
@@ -18,6 +20,7 @@ public class User {
     private String fname;
     private String lname;
 
+    @JsonCreator
     public User(){
 
     }
@@ -64,4 +67,6 @@ public class User {
     public void setLname(String lname) {
         this.lname = lname;
     }
+
+
 }
