@@ -5,4 +5,6 @@ public class FamilyMembers {
     Long familyId;
     Long memberId;
 
+
+
 }
