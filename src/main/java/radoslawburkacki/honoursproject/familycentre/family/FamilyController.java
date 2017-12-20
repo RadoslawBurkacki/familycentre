@@ -17,11 +17,12 @@ public class FamilyController {
 
 
 
-    @RequestMapping(method= RequestMethod.HEAD, value="/family/check/{email)")
-    public ResponseEntity checkIfMemberOfFamily(@PathVariable String email){
-        return familyService.checkIfMemberOfFamily(email);
-
+    @RequestMapping(method= RequestMethod.HEAD, value="/family/check/{id}")
+    public ResponseEntity CheckIfUserIsFamilyMemberById(@PathVariable long id){
+        return familyService.CheckIfUserIsFamilyMemberById(id);
     }
+
+
 
     @RequestMapping(method= RequestMethod.POST, value="family/create")
     public ResponseEntity createFamily(Family family){

@@ -1,8 +1,10 @@
 package radoslawburkacki.honoursproject.familycentre.user;
 
+import org.hibernate.validator.constraints.Email;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import radoslawburkacki.honoursproject.familycentre.family.FamilyService;
 
 import java.util.List;
 
@@ -19,8 +21,11 @@ public class UserController {
     Login
     Update
      */
+
+
     @Autowired
     private UserService userService;
+
 
 
     /*
@@ -35,26 +40,19 @@ public class UserController {
     public ResponseEntity registerNewUser(@RequestBody User user){
         User newUser = new User(user.getEmail(),user.getPassword(),user.getFname(),user.getLname()); // creating new user from passed data
         return userService.register(newUser); // passing new user
-    }
 
-    @RequestMapping("/hello")
-    public String sayhelo(){
-        return "hello";
     }
 
 
-
-
+    @RequestMapping(method= RequestMethod.GET, value="/user/{email:.+}")
+    public User getUser(@PathVariable String email){
+        return userService.getUser(email);
+    }
 
     @RequestMapping("/users/")
     public List<User> getAllRegisteredUsers(){
         return userService.getAllUsers();
     }
-
-
-
-
-
 
 
 

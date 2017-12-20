@@ -1,8 +1,15 @@
 package radoslawburkacki.honoursproject.familycentre.family;
 
 
+import javax.persistence.Column;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+
 public class Family {
 
+    @Id
+    @GeneratedValue
+    @Column(unique=true)
     Long id;
     Long creatorId;
     String creatorEmail;

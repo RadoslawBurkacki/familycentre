@@ -24,19 +24,6 @@ public class UserService {
     @Autowired
     private UserRepository userRepository;
 
-   /*
-
-
-    public ResponseEntity isEmailInUse(String email){
-        if(userRepository.exists(1)){
-            return ResponseEntity.status(HttpStatus.FOUND).body(null);    // return code created
-        }
-        else {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);    // return code created
-        }
-    }
-    */
-
 
     // register function
     public ResponseEntity register(User user) { // function returns ResponseEntity(HTTP status) it is expecting user object
@@ -51,15 +38,22 @@ public class UserService {
     }
 
 
+    public User getUser(String email) {
+        if (userRepository.findUserByEmail(email) != null) {
+            User user = userRepository.findUserByEmail(email);
+            user.setPassword("");
+            return user;
+        } else {
+            return new User();
+        }
+    }
 
-    ///////////////TESTING
+
     public List<User> getAllUsers() {
         List<User> users = new ArrayList();
         userRepository.findAll().forEach(users::add);
         return users;
     }
-
-
 
 
 }
