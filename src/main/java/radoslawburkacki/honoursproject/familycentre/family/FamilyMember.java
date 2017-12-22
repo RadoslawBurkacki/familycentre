@@ -1,5 +1,7 @@
 package radoslawburkacki.honoursproject.familycentre.family;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+
 import javax.persistence.*;
 
 
@@ -12,6 +14,16 @@ public class FamilyMember {
     @Column(unique=true)
     private Long memberId;
     private Long familyId;
+
+    @JsonCreator
+    public FamilyMember(){
+
+    }
+
+    public FamilyMember(Long memberId, Long familyId) {
+        this.memberId = memberId;
+        this.familyId = familyId;
+    }
 
     public Long getMemberId() {
         return memberId;

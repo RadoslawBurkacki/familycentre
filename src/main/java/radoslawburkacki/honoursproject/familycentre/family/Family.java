@@ -1,23 +1,39 @@
 package radoslawburkacki.honoursproject.familycentre.family;
 
 
-import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+
+import javax.persistence.*;
+
+
+@Entity
+@Table(name = "family")
 public class Family {
 
     @Id
     @GeneratedValue
     @Column(unique=true)
-    Long id;
+    Long familyId;
     Long creatorId;
-    String creatorEmail;
     String familyName;
     String joiningPassword;
 
+
+    @JsonCreator
+    public Family(){
+    }
+
+    public Family(Long creatorId, String familyName, String joiningPassword) {
+        this.creatorId = creatorId;
+        this.familyName = familyName;
+        this.joiningPassword = joiningPassword;
+    }
+
+
+
     public Long getId() {
-        return id;
+        return familyId;
     }
 
     public Long getCreatorId() {
@@ -34,14 +50,6 @@ public class Family {
 
     public void setFamilyName(String familyName) {
         this.familyName = familyName;
-    }
-
-    public String getCreatorEmail() {
-        return creatorEmail;
-    }
-
-    public void setCreatorEmail(String creatorEmail) {
-        this.creatorEmail = creatorEmail;
     }
 
     public String getJoiningPassword() {
