@@ -1,4 +1,4 @@
-package radoslawburkacki.honoursproject.familycentre.user;
+package radoslawburkacki.honoursproject.familycentre.Model;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 

@@ -1,4 +1,4 @@
-package radoslawburkacki.honoursproject.familycentre.family;
+package radoslawburkacki.honoursproject.familycentre.Model;
 
 
 
@@ -58,5 +58,15 @@ public class Family {
 
     public void setJoiningPassword(String joiningPassword) {
         this.joiningPassword = joiningPassword;
+    }
+
+    @Override
+    public String toString() {
+        return "Family{" +
+                "familyId=" + familyId +
+                ", creatorId=" + creatorId +
+                ", familyName='" + familyName + '\'' +
+                ", joiningPassword='" + joiningPassword + '\'' +
+                '}';
     }
 }

@@ -6,6 +6,7 @@ import org.springframework.http.ResponseEntity;
 
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import radoslawburkacki.honoursproject.familycentre.Model.User;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,6 +1,6 @@
 package radoslawburkacki.honoursproject.familycentre.security;
 
-import radoslawburkacki.honoursproject.familycentre.user.User;
+import radoslawburkacki.honoursproject.familycentre.Model.User;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;

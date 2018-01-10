@@ -6,7 +6,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import radoslawburkacki.honoursproject.familycentre.user.UserRepository;
-import radoslawburkacki.honoursproject.familycentre.user.User;
+import radoslawburkacki.honoursproject.familycentre.Model.User;
 
 import static java.util.Collections.emptyList;
 
