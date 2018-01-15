@@ -22,15 +22,14 @@ public class FamilyController {
 
 
     @RequestMapping(method = RequestMethod.GET, value = "/families/by-user-id/{id}")    // get family by user id
-    public Family getFamilyByUserID(@PathVariable long id) {
+    public ResponseEntity getFamilyByUserID(@PathVariable long id) {
         return familyService.getFamilyByUserID(id);
     }
 
     @RequestMapping(method = RequestMethod.POST, value = "/families/")
-    public void addUserToFamily(@RequestBody JoinFamily jf) {
+    public ResponseEntity addUserToFamily(@RequestBody JoinFamily jf) {
 
-          familyService.addUserToFamily(jf);
-
+        return familyService.addUserToFamily(jf);
 
     }
 
@@ -39,7 +38,6 @@ public class FamilyController {
     public ResponseEntity createFamily(@RequestBody Family family) {
         return familyService.createFamily(family);
     }
-
 
 
 }
