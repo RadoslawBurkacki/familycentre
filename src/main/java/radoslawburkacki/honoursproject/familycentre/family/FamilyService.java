@@ -8,6 +8,11 @@ import org.springframework.stereotype.Service;
 import radoslawburkacki.honoursproject.familycentre.Model.Family;
 import radoslawburkacki.honoursproject.familycentre.Model.FamilyMember;
 import radoslawburkacki.honoursproject.familycentre.Model.JoinFamily;
+import radoslawburkacki.honoursproject.familycentre.Model.User;
+import radoslawburkacki.honoursproject.familycentre.user.UserRepository;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 @Service
@@ -18,6 +23,9 @@ public class FamilyService {
 
     @Autowired
     private FamilyMemberRepository familyMemberRepository;
+
+    @Autowired
+    private UserRepository userRepository;
 
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
@@ -47,15 +55,26 @@ public class FamilyService {
         }
     }
 
+
     public ResponseEntity getFamilyByUserID(long id) {
 
         try {
-
             FamilyMember fm = familyMemberRepository.findFamilyMemberByMemberId(id);
-
             Family f = familyRepository.findFamilyByFamilyId(fm.getFamilyId());
 
             f.setJoiningPassword("");
+
+            List<FamilyMember> familymembers = new ArrayList<FamilyMember>();
+            familymembers = familyMemberRepository.findFamilyMemberByFamilyId(f.getId());
+
+            for (FamilyMember zz : familymembers) {
+                f.addFamilyMember(userRepository.findUserById(zz.getMemberId()));
+            }
+
+            for (User user : f.getFamilyMembers()) {
+                user.setPassword("");
+            }
+
 
             return new ResponseEntity<>(f, HttpStatus.FOUND);
 
@@ -65,21 +84,15 @@ public class FamilyService {
 
     }
 
+
     public ResponseEntity addUserToFamily(JoinFamily jf) {
-        /*
-        1. check if user family exists
-        2. check if user is already a member of any family
-        3. check password
-         */
+
         Family f = familyRepository.findFamilyByFamilyId(jf.getFamilyId());
 
         if (f == null) { // check if family exists (if family is null means that family does not exist)
-
             return new ResponseEntity<>("Family does not exist", HttpStatus.NOT_FOUND);
-
         } else { // family exists
             if (!familyMemberRepository.existsByMemberId(jf.getUserId())) { // check if user is a member of any family if false then...
-
                 if (bCryptPasswordEncoder.matches(jf.getFamilyPassword(), f.getJoiningPassword())) { // if family joining password is correct then...
 
                     FamilyMember fm = new FamilyMember();

@@ -15,6 +15,8 @@ public class FamilyController {
     private FamilyService familyService;
 
 
+
+
     @RequestMapping(method = RequestMethod.HEAD, value = "/families/{id}")  // check if user is family member - HEAD
     public ResponseEntity CheckIfUserIsFamilyMemberById(@PathVariable long id) {
         return familyService.CheckIfUserIsFamilyMemberById(id);
@@ -23,14 +25,15 @@ public class FamilyController {
 
     @RequestMapping(method = RequestMethod.GET, value = "/families/by-user-id/{id}")    // get family by user id
     public ResponseEntity getFamilyByUserID(@PathVariable long id) {
+
         return familyService.getFamilyByUserID(id);
+
     }
+
 
     @RequestMapping(method = RequestMethod.POST, value = "/families/")
     public ResponseEntity addUserToFamily(@RequestBody JoinFamily jf) {
-
         return familyService.addUserToFamily(jf);
-
     }
 
 
