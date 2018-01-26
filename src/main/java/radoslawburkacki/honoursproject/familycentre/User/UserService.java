@@ -1,4 +1,4 @@
-package radoslawburkacki.honoursproject.familycentre.user;
+package radoslawburkacki.honoursproject.familycentre.User;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -27,11 +27,11 @@ public class UserService {
 
 
     // register function
-    public ResponseEntity register(User user) { // function returns ResponseEntity(HTTP status) it is expecting user object
+    public ResponseEntity register(User user) { // function returns ResponseEntity(HTTP status) it is expecting User object
 
-        if (userRepository.findUserByEmail(user.getEmail()) == null) { // if user does not exist then..
+        if (userRepository.findUserByEmail(user.getEmail()) == null) { // if User does not exist then..
             user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
-            userRepository.save(user);  // add user to database
+            userRepository.save(user);  // add User to database
             return ResponseEntity.status(HttpStatus.CREATED).body(null);    // return code created
         } else {    // else...
             return ResponseEntity.status(HttpStatus.CONFLICT).body(null);   // return code conflict

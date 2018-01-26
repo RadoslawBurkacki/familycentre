@@ -10,17 +10,17 @@ import java.util.List;
 
 
 @Entity
-@Table(name = "family")
+@Table(name = "Family")
 public class Family {
 
     @Id
     @GeneratedValue
     @Column(unique=true, name = "familyId")
-
-    Long familyId;
+    Long id;
     Long creatorId;
     String familyName;
     String joiningPassword;
+
     @Transient
     List<User> familyMembers = new ArrayList<User>();
 
@@ -39,7 +39,7 @@ public class Family {
 
 
     public Long getId() {
-        return familyId;
+        return id;
     }
 
     public Long getCreatorId() {
@@ -81,7 +81,7 @@ public class Family {
     @Override
     public String toString() {
         return "Family{" +
-                "familyId=" + familyId +
+                "familyId=" + id +
                 ", creatorId=" + creatorId +
                 ", familyName='" + familyName + '\'' +
                 ", joiningPassword='" + joiningPassword + '\'' +

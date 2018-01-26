@@ -5,7 +5,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import radoslawburkacki.honoursproject.familycentre.Model.Family;
 import radoslawburkacki.honoursproject.familycentre.Model.JoinFamily;
-import radoslawburkacki.honoursproject.familycentre.family.FamilyService;
+import radoslawburkacki.honoursproject.familycentre.Family.FamilyService;
 
 
 @RestController
@@ -17,13 +17,13 @@ public class FamilyController {
 
 
 
-    @RequestMapping(method = RequestMethod.HEAD, value = "/families/{id}")  // check if user is family member - HEAD
+    @RequestMapping(method = RequestMethod.HEAD, value = "/families/{id}")  // check if User is Family member - HEAD
     public ResponseEntity CheckIfUserIsFamilyMemberById(@PathVariable long id) {
         return familyService.CheckIfUserIsFamilyMemberById(id);
     }
 
 
-    @RequestMapping(method = RequestMethod.GET, value = "/families/by-user-id/{id}")    // get family by user id
+    @RequestMapping(method = RequestMethod.GET, value = "/families/by-user-id/{id}")    // get Family by User id
     public ResponseEntity getFamilyByUserID(@PathVariable long id) {
 
         return familyService.getFamilyByUserID(id);
@@ -33,6 +33,7 @@ public class FamilyController {
 
     @RequestMapping(method = RequestMethod.POST, value = "/families/")
     public ResponseEntity addUserToFamily(@RequestBody JoinFamily jf) {
+        System.out.println("aaaa" + jf.getFamilyId());
         return familyService.addUserToFamily(jf);
     }
 

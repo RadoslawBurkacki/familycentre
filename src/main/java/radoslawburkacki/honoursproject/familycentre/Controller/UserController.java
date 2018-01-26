@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import radoslawburkacki.honoursproject.familycentre.Model.User;
-import radoslawburkacki.honoursproject.familycentre.user.UserService;
+import radoslawburkacki.honoursproject.familycentre.User.UserService;
 
 @RestController
 public class UserController {
@@ -28,8 +28,8 @@ public class UserController {
 
     @RequestMapping(method= RequestMethod.POST, value="/users")
     public ResponseEntity registerNewUser(@RequestBody User user){
-        User newUser = new User(user.getEmail(),user.getPassword(),user.getFname(),user.getLname()); // creating new user from passed data
-        return userService.register(newUser); // passing new user
+        User newUser = new User(user.getEmail(),user.getPassword(),user.getFname(),user.getLname()); // creating new User from passed data
+        return userService.register(newUser); // passing new User
 
     }
 

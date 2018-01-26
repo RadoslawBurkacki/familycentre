@@ -1,4 +1,4 @@
-package radoslawburkacki.honoursproject.familycentre.family;
+package radoslawburkacki.honoursproject.familycentre.Family;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -9,7 +9,7 @@ import radoslawburkacki.honoursproject.familycentre.Model.Family;
 import radoslawburkacki.honoursproject.familycentre.Model.FamilyMember;
 import radoslawburkacki.honoursproject.familycentre.Model.JoinFamily;
 import radoslawburkacki.honoursproject.familycentre.Model.User;
-import radoslawburkacki.honoursproject.familycentre.user.UserRepository;
+import radoslawburkacki.honoursproject.familycentre.User.UserRepository;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -60,7 +60,7 @@ public class FamilyService {
 
         try {
             FamilyMember fm = familyMemberRepository.findFamilyMemberByMemberId(id);
-            Family f = familyRepository.findFamilyByFamilyId(fm.getFamilyId());
+            Family f = familyRepository.findFamilyById(fm.getFamilyId());
 
             f.setJoiningPassword("");
 
@@ -75,7 +75,6 @@ public class FamilyService {
                 user.setPassword("");
             }
 
-
             return new ResponseEntity<>(f, HttpStatus.FOUND);
 
         } catch (NullPointerException e) {
@@ -87,19 +86,19 @@ public class FamilyService {
 
     public ResponseEntity addUserToFamily(JoinFamily jf) {
 
-        Family f = familyRepository.findFamilyByFamilyId(jf.getFamilyId());
+        Family f = familyRepository.findFamilyById(jf.getFamilyId());
 
-        if (f == null) { // check if family exists (if family is null means that family does not exist)
+        if (f == null) { // check if Family exists (if Family is null means that Family does not exist)
             return new ResponseEntity<>("Family does not exist", HttpStatus.NOT_FOUND);
-        } else { // family exists
-            if (!familyMemberRepository.existsByMemberId(jf.getUserId())) { // check if user is a member of any family if false then...
-                if (bCryptPasswordEncoder.matches(jf.getFamilyPassword(), f.getJoiningPassword())) { // if family joining password is correct then...
+        } else { // Family exists
+            if (!familyMemberRepository.existsByMemberId(jf.getUserId())) { // check if User is a member of any Family if false then...
+                if (bCryptPasswordEncoder.matches(jf.getFamilyPassword(), f.getJoiningPassword())) { // if Family joining password is correct then...
 
                     FamilyMember fm = new FamilyMember();
                     fm.setFamilyId(jf.getFamilyId());
                     fm.setMemberId(jf.getUserId());
 
-                    familyMemberRepository.save(fm); // add user to family
+                    familyMemberRepository.save(fm); // add User to Family
 
                     return new ResponseEntity<>("User added", HttpStatus.CREATED);
 
@@ -107,9 +106,9 @@ public class FamilyService {
 
                     return new ResponseEntity<>("Wrong joining password", HttpStatus.FORBIDDEN);
                 }
-            } else { // if user is already a member of family then...
+            } else { // if User is already a member of Family then...
 
-                return new ResponseEntity<>("User is already a member of family", HttpStatus.CONFLICT);
+                return new ResponseEntity<>("User is already a member of Family", HttpStatus.CONFLICT);
             }
 
         }

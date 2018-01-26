@@ -1,4 +1,4 @@
-package radoslawburkacki.honoursproject.familycentre.family;
+package radoslawburkacki.honoursproject.familycentre.Family;
 
 import org.springframework.data.repository.CrudRepository;
 import radoslawburkacki.honoursproject.familycentre.Model.Family;
@@ -7,7 +7,7 @@ import radoslawburkacki.honoursproject.familycentre.Model.Family;
 public interface FamilyRepository extends CrudRepository<Family,Long> {
 
 
-    public Family findFamilyByFamilyId(long id);
+    public Family findFamilyById( long id);
 
 
 
