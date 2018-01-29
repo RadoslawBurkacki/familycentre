@@ -33,15 +33,14 @@ public class FamilyController {
 
     @RequestMapping(method = RequestMethod.POST, value = "/families/")
     public ResponseEntity addUserToFamily(@RequestBody JoinFamily jf) {
-        System.out.println("aaaa" + jf.getFamilyId());
+
         return familyService.addUserToFamily(jf);
     }
 
 
     @RequestMapping(method = RequestMethod.POST, value = "/families")
     public ResponseEntity createFamily(@RequestBody Family family) {
+        System.out.println("New family has been created. "+family.toString());
         return familyService.createFamily(family);
     }
-
-
 }
