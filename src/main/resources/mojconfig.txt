@@ -10,10 +10,13 @@ security.basic.enabled=false
 ///
 
 
-spring.datasource.url=${JDBC_DATABASE_URL}
-spring.datasource.username=${JDBC_DATABASE_USERNAME}
-spring.datasource.password=${JDBC_DATABASE_PASSWORD}
-spring.jpa.show-sql=false
-spring.jpa.generate-ddl=true
-spring.jpa.hibernate.ddl-auto=create
+
+
+
+pring.jpa.hibernate.ddl-auto=update
+spring.datasource.url=jdbc:mysql://localhost:3306/familycentre
+spring.datasource.username=radoslaw
+spring.datasource.password=123456
 security.basic.enabled=false
+
+server.port = 1000
