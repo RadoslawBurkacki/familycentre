@@ -28,6 +28,7 @@ public class UserController {
 
     @RequestMapping(method= RequestMethod.POST, value="/users")
     public ResponseEntity registerNewUser(@RequestBody User user){
+        System.out.println("New user registered: " + user.getFname() + " " + user.getLname() +" " + user.getEmail());
         User newUser = new User(user.getEmail(),user.getPassword(),user.getFname(),user.getLname()); // creating new User from passed data
         return userService.register(newUser); // passing new User
 

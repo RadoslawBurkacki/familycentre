@@ -17,8 +17,6 @@ public class ChatService {
 
         messageRepository.save(m);
 
-        System.out.println(m.toString());
-
         return new ResponseEntity<>( HttpStatus.CREATED);
     }
 

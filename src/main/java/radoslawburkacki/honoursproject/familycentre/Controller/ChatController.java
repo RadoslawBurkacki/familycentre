@@ -15,6 +15,9 @@ public class ChatController {
     @RequestMapping(method = RequestMethod.POST, value = "/chat/")
     public ResponseEntity CheckIfUserIsFamilyMemberById(@RequestBody Message m) {
 
+
+        System.out.println("POST new message from: "+ m.getFromId() +" To: " +m.getToId() +" Message: " +m.getMessage()) ;
+
         return chatService.addMessage(m);
 
 
