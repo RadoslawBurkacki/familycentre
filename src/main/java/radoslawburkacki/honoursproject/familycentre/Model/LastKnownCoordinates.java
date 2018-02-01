@@ -10,7 +10,6 @@ public class LastKnownCoordinates {
 
 
     @Id
-    @GeneratedValue
     @Column(unique = true)
     private long id;
     private double latitude;

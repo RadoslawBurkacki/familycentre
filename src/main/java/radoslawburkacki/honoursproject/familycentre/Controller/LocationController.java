@@ -5,6 +5,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import radoslawburkacki.honoursproject.familycentre.Location.LocationService;
 import radoslawburkacki.honoursproject.familycentre.Model.LastKnownCoordinates;
+import radoslawburkacki.honoursproject.familycentre.Model.User;
+
+import java.util.List;
 
 
 @RestController
@@ -28,6 +31,12 @@ public class LocationController {
 
         lastKnownCoordinates.setId(userid);
         return locationService.saveCoordinates(lastKnownCoordinates);
+    }
+
+
+    @RequestMapping(method= RequestMethod.GET, value="/families/location/")
+    public List<LastKnownCoordinates> getAllUsers(){
+        return locationService.getAllLastKnownCoordinates();
     }
 
 }

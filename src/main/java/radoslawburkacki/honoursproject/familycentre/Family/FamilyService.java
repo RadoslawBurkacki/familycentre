@@ -5,10 +5,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
-import radoslawburkacki.honoursproject.familycentre.Model.Family;
-import radoslawburkacki.honoursproject.familycentre.Model.FamilyMember;
-import radoslawburkacki.honoursproject.familycentre.Model.JoinFamily;
-import radoslawburkacki.honoursproject.familycentre.Model.User;
+import radoslawburkacki.honoursproject.familycentre.Model.*;
 import radoslawburkacki.honoursproject.familycentre.User.UserRepository;
 
 import java.util.ArrayList;
@@ -112,6 +109,14 @@ public class FamilyService {
             }
 
         }
+
+    }
+
+    public List<Family> getAllFamilies() {
+
+        List<Family> families = new ArrayList();
+        familyRepository.findAll().forEach(families::add);
+        return families;
 
     }
 

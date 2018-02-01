@@ -7,6 +7,8 @@ import radoslawburkacki.honoursproject.familycentre.Model.Family;
 import radoslawburkacki.honoursproject.familycentre.Model.JoinFamily;
 import radoslawburkacki.honoursproject.familycentre.Family.FamilyService;
 
+import java.util.List;
+
 
 @RestController
 public class FamilyController {
@@ -27,6 +29,15 @@ public class FamilyController {
     public ResponseEntity getFamilyByUserID(@PathVariable long id) {
 
         return familyService.getFamilyByUserID(id);
+
+    }
+
+
+
+    @RequestMapping(method = RequestMethod.GET, value = "/families/")    // get Family by User id
+    public List<Family> getAllFamilies() {
+
+        return familyService.getAllFamilies();
 
     }
 

@@ -6,24 +6,15 @@ import org.springframework.web.bind.annotation.*;
 import radoslawburkacki.honoursproject.familycentre.Model.User;
 import radoslawburkacki.honoursproject.familycentre.User.UserService;
 
+import java.util.List;
+
 @RestController
 public class UserController {
 
 
 
-    /*
-    List of functions
-
-    IsEmailAvailable
-    Register
-    Login
-    Update
-     */
-
-
     @Autowired
     private UserService userService;
-
 
 
     @RequestMapping(method= RequestMethod.POST, value="/users")
@@ -37,6 +28,11 @@ public class UserController {
     @RequestMapping(method= RequestMethod.GET, value="/users/{email:.+}")
     public User getUser(@PathVariable String email){
         return userService.getUser(email);
+    }
+
+    @RequestMapping(method= RequestMethod.GET, value="/users/")
+    public List<User> getAllUsers(){
+        return userService.getAllUsers();
     }
 
 
