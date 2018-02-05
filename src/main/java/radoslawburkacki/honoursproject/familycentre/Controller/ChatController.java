@@ -3,7 +3,7 @@ package radoslawburkacki.honoursproject.familycentre.Controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import radoslawburkacki.honoursproject.familycentre.Chat.ChatService;
+import radoslawburkacki.honoursproject.familycentre.Service.ChatService;
 import radoslawburkacki.honoursproject.familycentre.Model.Message;
 
 @RestController

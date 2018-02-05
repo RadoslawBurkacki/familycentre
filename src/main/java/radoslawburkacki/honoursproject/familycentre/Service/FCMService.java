@@ -1,0 +1,111 @@
+package radoslawburkacki.honoursproject.familycentre.Service;
+
+
+
+import com.google.gson.*;
+import com.squareup.okhttp.*;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import radoslawburkacki.honoursproject.familycentre.CrudRepo.FCMTokenRepository;
+import radoslawburkacki.honoursproject.familycentre.Model.FCMToken;
+import radoslawburkacki.honoursproject.familycentre.Model.Message;
+
+@Service
+public class FCMService {
+
+    @Autowired
+    FCMTokenRepository fcmTokenRepository;
+
+    public void saveFCMToken(FCMToken fcmToken) {
+
+        fcmTokenRepository.save(fcmToken);
+
+    }
+
+
+    public void notifyAboutSOS(){
+
+    }
+
+
+    public void notifyAboutNewFamilyMember(){
+
+    }
+
+    public void sendFamilyChatMessage(){
+
+    }
+
+
+
+    public void sendPrivateChatMessage(Message m) {
+
+        final MediaType jsonMediaType = MediaType.parse("application/json");
+        try {
+
+            JsonObject data = new JsonObject();
+            data.addProperty("Message", m.getMessage());
+            data.addProperty("from", m.getFromId());
+            data.addProperty("date", m.getDate());
+
+            JsonObject jsonObject = new JsonObject();
+            jsonObject.addProperty("to", fcmTokenRepository.findFCMTokenByUserId(m.getToId()));
+            jsonObject.add("data", data);
+
+
+            RequestBody requestBody = RequestBody.create(jsonMediaType, new Gson().toJson(jsonObject));
+
+            OkHttpClient client = new OkHttpClient();
+
+            Request request = new Request.Builder()
+                    .url("https://fcm.googleapis.com/fcm/send")
+                    .post(requestBody)
+                    .addHeader("content-type", "application/json")
+                    .addHeader("Authorization", "key=AIzaSyA-uBFG9bHbDz8IGOwU-evqXA3YWidDU58")
+                    .build();
+
+            Response response = client.newCall(request).execute();
+
+            response.body().close();
+
+        } catch (Exception e) {
+
+        }
+
+
+        /*
+        working notification
+        final MediaType jsonMediaType = MediaType.parse("application/json");
+        try {
+
+            JsonObject a = new JsonObject();
+            a.addProperty("body", "hello java123321");
+
+            JsonObject jsonObject = new JsonObject();
+            jsonObject.addProperty("to", UserToken);
+            jsonObject.add("notification", a);
+
+
+            RequestBody requestBody = RequestBody.create(jsonMediaType, new Gson().toJson(jsonObject));
+
+            OkHttpClient client = new OkHttpClient();
+
+            Request request = new Request.Builder()
+                    .url("https://fcm.googleapis.com/fcm/send")
+                    .post(requestBody)
+                    .addHeader("content-type", "application/json")
+                    .addHeader("Authorization", "key=AIzaSyA-uBFG9bHbDz8IGOwU-evqXA3YWidDU58")
+                    .build();
+
+            Response response = client.newCall(request).execute();
+
+            response.body().close();
+
+        } catch (Exception e) {
+
+        }*/
+
+    }
+
+
+}

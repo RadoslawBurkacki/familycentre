@@ -1,4 +1,4 @@
-package radoslawburkacki.honoursproject.familycentre.Family;
+package radoslawburkacki.honoursproject.familycentre.CrudRepo;
 
 import org.springframework.data.repository.CrudRepository;
 import radoslawburkacki.honoursproject.familycentre.Model.Family;

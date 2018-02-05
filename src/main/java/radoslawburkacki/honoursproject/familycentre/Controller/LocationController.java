@@ -3,9 +3,8 @@ package radoslawburkacki.honoursproject.familycentre.Controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import radoslawburkacki.honoursproject.familycentre.Location.LocationService;
+import radoslawburkacki.honoursproject.familycentre.Service.LocationService;
 import radoslawburkacki.honoursproject.familycentre.Model.LastKnownCoordinates;
-import radoslawburkacki.honoursproject.familycentre.Model.User;
 
 import java.util.List;
 

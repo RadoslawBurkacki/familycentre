@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import radoslawburkacki.honoursproject.familycentre.Model.User;
-import radoslawburkacki.honoursproject.familycentre.User.UserService;
+import radoslawburkacki.honoursproject.familycentre.Service.UserService;
 
 import java.util.List;
 

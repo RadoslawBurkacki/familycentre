@@ -1,11 +1,11 @@
-package radoslawburkacki.honoursproject.familycentre.Location;
+package radoslawburkacki.honoursproject.familycentre.Service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import radoslawburkacki.honoursproject.familycentre.CrudRepo.LastKnownCoordinatesRepository;
 import radoslawburkacki.honoursproject.familycentre.Model.LastKnownCoordinates;
-import radoslawburkacki.honoursproject.familycentre.Model.User;
 
 import java.util.ArrayList;
 import java.util.List;
