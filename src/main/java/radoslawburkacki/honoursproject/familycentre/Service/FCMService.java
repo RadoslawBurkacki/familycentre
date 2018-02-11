@@ -40,18 +40,27 @@ public class FCMService {
 
     public void sendPrivateChatMessage(Message m) {
 
+        System.out.println("Sending message");
+
         final MediaType jsonMediaType = MediaType.parse("application/json");
         try {
 
+         //   JsonObject notification = new JsonObject();
+        //    notification.addProperty("body", m.getMessage());
+
+
             JsonObject data = new JsonObject();
-            data.addProperty("Message", m.getMessage());
-            data.addProperty("from", m.getFromId());
+            data.addProperty("message", m.getMessage());
+            data.addProperty("fromid", m.getFromId());
+            data.addProperty("toid", m.getToId());
             data.addProperty("date", m.getDate());
 
-            JsonObject jsonObject = new JsonObject();
-            jsonObject.addProperty("to", fcmTokenRepository.findFCMTokenByUserId(m.getToId()));
-            jsonObject.add("data", data);
 
+            JsonObject jsonObject = new JsonObject();
+            jsonObject.add("data", data);
+        //a    jsonObject.add("notification", notification);
+
+            jsonObject.addProperty("to", fcmTokenRepository.findFCMTokenByUserId(m.getToId()).getMyFCMToken());
 
             RequestBody requestBody = RequestBody.create(jsonMediaType, new Gson().toJson(jsonObject));
 
@@ -66,10 +75,12 @@ public class FCMService {
 
             Response response = client.newCall(request).execute();
 
+            System.out.println("aaa"+response.code() + response.body().string());
+
             response.body().close();
 
         } catch (Exception e) {
-
+            System.out.println(e.toString());
         }
 
 

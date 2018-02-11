@@ -5,5 +5,5 @@ import radoslawburkacki.honoursproject.familycentre.Model.FCMToken;
 
 public interface FCMTokenRepository extends CrudRepository <FCMToken, Long>{
 
-    public String findFCMTokenByUserId(Long id);
+    public FCMToken findFCMTokenByUserId(Long id);
 }
