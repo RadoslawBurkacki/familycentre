@@ -5,6 +5,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import radoslawburkacki.honoursproject.familycentre.CrudRepo.FCMTokenRepository;
 import radoslawburkacki.honoursproject.familycentre.CrudRepo.FamilyMemberRepository;
 import radoslawburkacki.honoursproject.familycentre.CrudRepo.FamilyRepository;
 import radoslawburkacki.honoursproject.familycentre.Model.*;
@@ -25,6 +26,12 @@ public class FamilyService {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    FCMTokenRepository fcmTokenRepository;
+
+    @Autowired
+    FCMService fcmService;
 
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
@@ -99,6 +106,8 @@ public class FamilyService {
 
                     familyMemberRepository.save(fm); // add User to Family
 
+                    sendNotificationAboutNewUser(jf.getFamilyId(), jf.getUserId());
+
                     return new ResponseEntity<>("User added", HttpStatus.CREATED);
 
                 } else { // if password is wrong then...
@@ -113,6 +122,35 @@ public class FamilyService {
         }
 
     }
+
+    public void sendNotificationAboutNewUser(Long familyid, Long userid) {
+
+        List<FamilyMember> familymembers = new ArrayList<>();
+        familymembers = familyMemberRepository.findFamilyMemberByFamilyId(familyid);
+
+        List<String> FCMtokenList = new ArrayList<String>();
+
+        for (FamilyMember f : familymembers) {
+            if(f.getMemberId()== userid){
+                continue;
+            }
+            System.out.println(f.getMemberId());
+            FCMtokenList.add(fcmTokenRepository.findFCMTokenByUserId(f.getMemberId()).getMyFCMToken());
+        }
+
+        fcmService.sendNewUserNotification(FCMtokenList, userRepository.findUserById(userid).getFname() + " " + userRepository.findUserById(userid).getLname());
+
+
+        /*
+        1. get family id
+        2. get all family links
+        3. get tokens for all family memebrs
+        2. send notifications
+         */
+
+
+    }
+
 
     public List<Family> getAllFamilies() {
 
