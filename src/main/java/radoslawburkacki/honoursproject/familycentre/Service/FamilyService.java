@@ -65,7 +65,7 @@ public class FamilyService {
     public ResponseEntity getFamilyByUserID(long id) {
 
         try {
-            FamilyMember fm = familyMemberRepository.findFamilyMemberByMemberId(id);
+            FamilyMember fm =  familyMemberRepository.findFamilyMemberByMemberId(id);
             Family f = familyRepository.findFamilyById(fm.getFamilyId());
 
             f.setJoiningPassword("");
@@ -139,16 +139,6 @@ public class FamilyService {
         }
 
         fcmService.sendNewUserNotification(FCMtokenList, userRepository.findUserById(userid).getFname() + " " + userRepository.findUserById(userid).getLname());
-
-
-        /*
-        1. get family id
-        2. get all family links
-        3. get tokens for all family memebrs
-        2. send notifications
-         */
-
-
     }
 
 

@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import radoslawburkacki.honoursproject.familycentre.CrudRepo.FCMTokenRepository;
 import radoslawburkacki.honoursproject.familycentre.Model.FCMToken;
 import radoslawburkacki.honoursproject.familycentre.Model.Message;
+import radoslawburkacki.honoursproject.familycentre.Model.User;
 
 import java.util.List;
 
@@ -24,69 +25,107 @@ public class FCMService {
     }
 
 
-    public void notifyAboutSOS() {
+    public void sendSOS(List<String> FCMtokenList, String name) {
 
+        System.out.println("Sending SOS notification");
+
+
+        for(String s : FCMtokenList){
+            final MediaType jsonMediaType = MediaType.parse("application/json");
+            try {
+
+                JsonObject android = new JsonObject();
+                android.addProperty("priority", "high");
+
+                JsonObject data = new JsonObject();
+                data.addProperty("sos", name);
+
+                JsonObject jsonObject = new JsonObject();
+                jsonObject.add("data", data);
+                jsonObject.add("android", android);
+
+                jsonObject.addProperty("to", s);
+
+                RequestBody requestBody = RequestBody.create(jsonMediaType, new Gson().toJson(jsonObject));
+
+                OkHttpClient client = new OkHttpClient();
+
+                Request request = new Request.Builder()
+                        .url("https://fcm.googleapis.com/fcm/send")
+                        .post(requestBody)
+                        .addHeader("content-type", "application/json")
+                        .addHeader("Authorization", "key=AIzaSyA-uBFG9bHbDz8IGOwU-evqXA3YWidDU58")
+                        .build();
+
+                Response response = client.newCall(request).execute();
+                System.out.println("aaa" + response.code() + response.body().string());
+
+                response.body().close();
+            } catch (Exception e) {
+                System.out.println(e.toString());
+            }
+        }
     }
 
 
-    public void notifyAboutNewFamilyMember() {
 
-    }
 
     public void sendFamilyChatMessage() {
-
     }
 
     public void sendNewUserNotification(List<String> FCMtokenList, String membername) {
 
         System.out.println("Sending notifcation about new user");
 
+        for(String s : FCMtokenList){
+            final MediaType jsonMediaType = MediaType.parse("application/json");
+            try {
 
-        final MediaType jsonMediaType = MediaType.parse("application/json");
-        try {
+                JsonObject android = new JsonObject();
+                android.addProperty("priority", "high");
 
-            JsonObject data = new JsonObject();
-            data.addProperty("newfamilymember", membername);
 
-            JsonObject jsonObject = new JsonObject();
-            jsonObject.add("data", data);
+                JsonObject data = new JsonObject();
+                data.addProperty("newfamilymember", membername);
 
-            for (String s : FCMtokenList) {
+                JsonObject jsonObject = new JsonObject();
+                jsonObject.add("data", data);
+                jsonObject.add("android", android);
+
                 jsonObject.addProperty("to", s);
+
+                RequestBody requestBody = RequestBody.create(jsonMediaType, new Gson().toJson(jsonObject));
+
+                OkHttpClient client = new OkHttpClient();
+
+                Request request = new Request.Builder()
+                        .url("https://fcm.googleapis.com/fcm/send")
+                        .post(requestBody)
+                        .addHeader("content-type", "application/json")
+                        .addHeader("Authorization", "key=AIzaSyA-uBFG9bHbDz8IGOwU-evqXA3YWidDU58")
+                        .build();
+
+                Response response = client.newCall(request).execute();
+                System.out.println("aaa" + response.code() + response.body().string());
+
+                response.body().close();
+            } catch (Exception e) {
+                System.out.println(e.toString());
             }
-
-
-
-            RequestBody requestBody = RequestBody.create(jsonMediaType, new Gson().toJson(jsonObject));
-
-            OkHttpClient client = new OkHttpClient();
-
-            Request request = new Request.Builder()
-                    .url("https://fcm.googleapis.com/fcm/send")
-                    .post(requestBody)
-                    .addHeader("content-type", "application/json")
-                    .addHeader("Authorization", "key=AIzaSyA-uBFG9bHbDz8IGOwU-evqXA3YWidDU58")
-                    .build();
-
-            Response response = client.newCall(request).execute();
-            System.out.println("aaa" + response.code() + response.body().string());
-
-            response.body().close();
-        } catch (Exception e) {
-            System.out.println(e.toString());
         }
+
     }
 
 
     public void sendPrivateChatMessage(Message m) {
 
-        System.out.println("Sending message");
+        System.out.println("\nSending private message from " + m.getFromId() + " to: " + m.getToId() + ". Message: " + m.getMessage()
+                + "\nTo: " + fcmTokenRepository.findFCMTokenByUserId(m.getToId()).getMyFCMToken());
 
         final MediaType jsonMediaType = MediaType.parse("application/json");
         try {
-
-            //   JsonObject notification = new JsonObject();
-            //    notification.addProperty("body", m.getMessage());
+            JsonObject android = new JsonObject();
+            android.addProperty("priority", "high");
 
 
             JsonObject data = new JsonObject();
@@ -95,10 +134,9 @@ public class FCMService {
             data.addProperty("toid", m.getToId());
             data.addProperty("date", m.getDate());
 
-
             JsonObject jsonObject = new JsonObject();
             jsonObject.add("data", data);
-            //a    jsonObject.add("notification", notification);
+            jsonObject.add("android", android);
 
             jsonObject.addProperty("to", fcmTokenRepository.findFCMTokenByUserId(m.getToId()).getMyFCMToken());
 

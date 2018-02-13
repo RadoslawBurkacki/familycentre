@@ -15,6 +15,7 @@ public class ChatController {
     @RequestMapping(method = RequestMethod.POST, value = "/chat/")
     public ResponseEntity CheckIfUserIsFamilyMemberById(@RequestBody Message m) {
 
+
         return chatService.addMessage(m);
 
 

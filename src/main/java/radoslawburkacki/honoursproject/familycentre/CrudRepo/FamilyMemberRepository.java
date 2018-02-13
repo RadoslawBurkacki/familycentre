@@ -10,4 +10,5 @@ public interface FamilyMemberRepository extends CrudRepository<FamilyMember, Lon
     public boolean existsByMemberId(Long id);
     public FamilyMember findFamilyMemberByMemberId(Long id);
     public List<FamilyMember> findFamilyMemberByFamilyId(long id);
+   // public List<FamilyMember> findFamilyMemberByMemberId(long id);
 }
