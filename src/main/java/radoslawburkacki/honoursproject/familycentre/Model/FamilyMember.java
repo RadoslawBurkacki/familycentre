@@ -9,7 +9,6 @@ import javax.persistence.*;
 @Table(name = "familyMembers")
 public class FamilyMember {
 
-
     @Id
     @Column(unique=true)
     private Long memberId;
@@ -17,7 +16,6 @@ public class FamilyMember {
 
     @JsonCreator
     public FamilyMember(){
-
     }
 
     public FamilyMember(Long memberId, Long familyId) {

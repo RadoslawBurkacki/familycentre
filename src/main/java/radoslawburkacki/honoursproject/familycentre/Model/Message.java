@@ -11,11 +11,11 @@ public class Message {
     @Id
     @GeneratedValue
     @Column(unique = true)
-    long messageId;
-    long fromId;
-    long toId;
-    String message;
-    String date;
+    private long messageId;
+    private long fromId;
+    private long toId;
+    private String message;
+    private String date;
 
     public Message() {
 

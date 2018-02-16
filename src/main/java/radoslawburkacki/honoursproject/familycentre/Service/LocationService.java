@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import radoslawburkacki.honoursproject.familycentre.CrudRepo.LastKnownCoordinatesRepository;
 import radoslawburkacki.honoursproject.familycentre.Model.LastKnownCoordinates;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,6 +21,7 @@ public class LocationService {
 
     public ResponseEntity saveCoordinates(LastKnownCoordinates lastKnownCoordinates) {
 
+        lastKnownCoordinates.setDateTime(LocalDateTime.now());
         lastKnownCoordinatesRepository.save(lastKnownCoordinates);
 
         return new ResponseEntity<>("User is already a member of Family", HttpStatus.CONFLICT);
@@ -27,8 +29,11 @@ public class LocationService {
 
     public ResponseEntity getLastKnownCoordinates(Long userid) {
 
-        if(lastKnownCoordinatesRepository.findLastKnownCoordinatesById(userid)!= null){
-            return new ResponseEntity<>(lastKnownCoordinatesRepository.findLastKnownCoordinatesById(userid), HttpStatus.FOUND);
+        if (lastKnownCoordinatesRepository.findLastKnownCoordinatesById(userid) != null) {
+
+            LastKnownCoordinates l = lastKnownCoordinatesRepository.findLastKnownCoordinatesById(userid);
+            l.getDifference();
+            return new ResponseEntity<>(l, HttpStatus.FOUND);
         }
         return new ResponseEntity<>(lastKnownCoordinatesRepository.findLastKnownCoordinatesById(userid), HttpStatus.NOT_FOUND);
 

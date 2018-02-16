@@ -16,13 +16,12 @@ public class Family {
     @Id
     @GeneratedValue
     @Column(unique=true, name = "familyId")
-    Long id;
-    Long creatorId;
-    String familyName;
-    String joiningPassword;
-
+    private Long id;
+    private Long creatorId;
+    private String familyName;
+    private String joiningPassword;
     @Transient
-    List<User> familyMembers = new ArrayList<User>();
+    private List<User> familyMembers = new ArrayList<User>();
 
 
     @JsonCreator

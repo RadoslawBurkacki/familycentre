@@ -8,8 +8,6 @@ import javax.persistence.*;
 @Table(name = "users")
 public class User {
 
-
-
     @Id
     @GeneratedValue
     @Column(unique=true)

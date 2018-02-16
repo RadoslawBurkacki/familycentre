@@ -13,8 +13,8 @@ public class FCMToken {
 
     @Id
     @Column(unique = true)
-    Long userId;
-    String myFCMToken;
+    private Long userId;
+    private String myFCMToken;
 
     @JsonCreator
     public FCMToken(){
