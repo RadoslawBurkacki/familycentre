@@ -19,18 +19,23 @@ public class FCMService {
     FCMTokenRepository fcmTokenRepository;
 
     public void saveFCMToken(FCMToken fcmToken) {
+        System.out.println("Save FCMToken");
+
+        if (fcmTokenRepository.findByMyFCMToken(fcmToken.getMyFCMToken()) != null) {
+            System.out.println("@@@@@@@@");
+            FCMToken fcmToken1 = fcmTokenRepository.findByMyFCMToken(fcmToken.getMyFCMToken());
+            fcmToken1.setMyFCMToken("empty");
+            fcmTokenRepository.save(fcmToken1);
+        }
 
         fcmTokenRepository.save(fcmToken);
-
     }
-
 
     public void sendSOS(List<String> FCMtokenList, String name) {
 
         System.out.println("Sending SOS notification");
 
-
-        for(String s : FCMtokenList){
+        for (String s : FCMtokenList) {
             final MediaType jsonMediaType = MediaType.parse("application/json");
             try {
 
@@ -68,8 +73,6 @@ public class FCMService {
     }
 
 
-
-
     public void sendFamilyChatMessage() {
     }
 
@@ -77,7 +80,7 @@ public class FCMService {
 
         System.out.println("Sending notifcation about new user");
 
-        for(String s : FCMtokenList){
+        for (String s : FCMtokenList) {
             final MediaType jsonMediaType = MediaType.parse("application/json");
             try {
 
