@@ -11,6 +11,7 @@ import radoslawburkacki.honoursproject.familycentre.CrudRepo.FamilyRepository;
 import radoslawburkacki.honoursproject.familycentre.Model.*;
 import radoslawburkacki.honoursproject.familycentre.CrudRepo.UserRepository;
 
+import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -106,7 +107,10 @@ public class FamilyService {
 
                     familyMemberRepository.save(fm); // add User to Family
 
-                    sendNotificationAboutNewUser(jf.getFamilyId(), jf.getUserId());
+                    try{
+                        sendNotificationAboutNewUser(jf.getFamilyId(), jf.getUserId());
+                    }catch (Exception e){
+                    }
 
                     return new ResponseEntity<>("User added", HttpStatus.CREATED);
 

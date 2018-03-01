@@ -6,6 +6,8 @@ import org.springframework.web.bind.annotation.*;
 import radoslawburkacki.honoursproject.familycentre.Service.LocationService;
 import radoslawburkacki.honoursproject.familycentre.Model.LastKnownCoordinates;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 
@@ -18,15 +20,18 @@ public class LocationController {
     @RequestMapping(method = RequestMethod.GET, value = "/families/location/{userid}")
     public ResponseEntity getLocationCoordinates(@PathVariable Long userid) {
 
-        System.out.println("Get Location coordinates for user : " + userid);
+        System.out.println(" Get Location coordinates for user : " + userid);
 
         return locationService.getLastKnownCoordinates(userid);
     }
 
     @RequestMapping(method = RequestMethod.POST, value = "/families/location/{userid}")
     public ResponseEntity addNewLocationCoordinates(@PathVariable Long userid, @RequestBody LastKnownCoordinates lastKnownCoordinates) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm:ss");
+        LocalDateTime toDateTime = LocalDateTime.now();
+        String formatDateTime = toDateTime.format(formatter);
 
-        System.out.println("Post location coordinates for user "+ userid +" Longitude: " + lastKnownCoordinates.getLongitude() +" , Latitude: "+ lastKnownCoordinates.getLatitude());
+        System.out.println("- "+formatDateTime + " Post location coordinates for user "+ userid +" Longitude: " + lastKnownCoordinates.getLongitude() +" , Latitude: "+ lastKnownCoordinates.getLatitude());
 
         lastKnownCoordinates.setId(userid);
         return locationService.saveCoordinates(lastKnownCoordinates);
