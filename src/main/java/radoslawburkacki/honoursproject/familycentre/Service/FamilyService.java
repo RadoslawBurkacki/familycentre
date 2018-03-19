@@ -154,4 +154,22 @@ public class FamilyService {
 
     }
 
+    public ResponseEntity removeUserFromFamily(long famid, long id){
+
+                List<FamilyMember> familymembers = new ArrayList<>();
+        familymembers = familyMemberRepository.findFamilyMemberByFamilyId(famid);
+
+        List<String> FCMtokenList = new ArrayList<String>();
+
+        for (FamilyMember f : familymembers) {
+            System.out.println(fcmTokenRepository.findFCMTokenByUserId(f.getMemberId()).getMyFCMToken());
+            FCMtokenList.add(fcmTokenRepository.findFCMTokenByUserId(f.getMemberId()).getMyFCMToken());
+        }
+
+        fcmService.sendUserRemovedNotification(FCMtokenList, userRepository.findUserById(id));
+
+        familyMemberRepository.removeFamilyMemberByMemberId(id);
+        return new ResponseEntity<>("User removed", HttpStatus.ACCEPTED);
+    }
+
 }

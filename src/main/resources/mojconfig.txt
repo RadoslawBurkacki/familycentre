@@ -22,3 +22,10 @@ spring.jpa.hibernate.ddl-auto=create
 
 
 // dziala up
+
+https
+server.ssl.key-alias=FCA
+server.ssl.key-password=123456
+server.ssl.key-store=keystore.jks
+server.ssl.key-store-provider=SUN
+server.ssl.key-store-type=JKS

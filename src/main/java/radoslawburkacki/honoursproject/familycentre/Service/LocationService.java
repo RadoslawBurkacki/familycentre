@@ -24,7 +24,7 @@ public class LocationService {
         lastKnownCoordinates.setDateTime(LocalDateTime.now());
         lastKnownCoordinatesRepository.save(lastKnownCoordinates);
 
-        return new ResponseEntity<>("User is already a member of Family", HttpStatus.CONFLICT);
+        return new ResponseEntity<>("Location updated", HttpStatus.OK);
     }
 
     public ResponseEntity getLastKnownCoordinates(Long userid) {

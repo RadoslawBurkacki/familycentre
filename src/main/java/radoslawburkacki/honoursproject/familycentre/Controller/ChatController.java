@@ -13,7 +13,7 @@ public class ChatController {
     ChatService chatService;
 
     @RequestMapping(method = RequestMethod.POST, value = "/chat/")
-    public ResponseEntity CheckIfUserIsFamilyMemberById(@RequestBody Message m) {
+    public ResponseEntity SaveChatMessage(@RequestBody Message m) {
 
 
         return chatService.addMessage(m);

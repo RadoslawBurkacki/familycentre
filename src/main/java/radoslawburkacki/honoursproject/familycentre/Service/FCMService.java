@@ -3,6 +3,7 @@ package radoslawburkacki.honoursproject.familycentre.Service;
 
 import com.google.gson.*;
 import com.squareup.okhttp.*;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import radoslawburkacki.honoursproject.familycentre.CrudRepo.FCMTokenRepository;
@@ -73,8 +74,6 @@ public class FCMService {
     }
 
 
-    public void sendFamilyChatMessage() {
-    }
 
     public void sendNewUserNotification(List<String> FCMtokenList, String membername) {
 
@@ -196,6 +195,49 @@ public class FCMService {
         } catch (Exception e) {
 
         }*/
+
+    }
+
+    public void sendUserRemovedNotification(List<String> FCMtokenList, User user){
+
+
+        for (String s : FCMtokenList) {
+            final MediaType jsonMediaType = MediaType.parse("application/json");
+            try {
+
+                JsonObject android = new JsonObject();
+                android.addProperty("priority", "high");
+
+                JsonObject data = new JsonObject();
+                data.addProperty("firstname", user.getFname());
+                data.addProperty("lastname", user.getLname());
+                data.addProperty("userid", user.getId());
+
+                JsonObject jsonObject = new JsonObject();
+                jsonObject.add("data", data);
+                jsonObject.add("android", android);
+
+                jsonObject.addProperty("to", s);
+
+                RequestBody requestBody = RequestBody.create(jsonMediaType, new Gson().toJson(jsonObject));
+
+                OkHttpClient client = new OkHttpClient();
+
+                Request request = new Request.Builder()
+                        .url("https://fcm.googleapis.com/fcm/send")
+                        .post(requestBody)
+                        .addHeader("content-type", "application/json")
+                        .addHeader("Authorization", "key=AIzaSyA-uBFG9bHbDz8IGOwU-evqXA3YWidDU58")
+                        .build();
+
+                Response response = client.newCall(request).execute();
+                System.out.println("aaa" + response.code() + response.body().string());
+
+                response.body().close();
+            } catch (Exception e) {
+                System.out.println(e.toString());
+            }
+        }
 
     }
 

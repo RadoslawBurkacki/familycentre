@@ -14,7 +14,7 @@ public class SOSController {
     SOSService sosService;
 
     @RequestMapping(method = RequestMethod.HEAD, value = "/sos/{id}")
-    public ResponseEntity saveFCMToken(@PathVariable long id) {
+    public ResponseEntity sendSOS(@PathVariable long id) {
         System.out.println("SOS Received");
        return sosService.sendSOS(id);
     }

@@ -5,6 +5,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import radoslawburkacki.honoursproject.familycentre.Model.Family;
 import radoslawburkacki.honoursproject.familycentre.Model.JoinFamily;
+import radoslawburkacki.honoursproject.familycentre.Model.User;
 import radoslawburkacki.honoursproject.familycentre.Service.FamilyService;
 
 import java.util.List;
@@ -47,6 +48,12 @@ public class FamilyController {
 
     }
 
+
+    @RequestMapping(method = RequestMethod.DELETE, value = "/families/")    // get Family by User id
+    public ResponseEntity removeUserFromFamily(@RequestBody JoinFamily jf) {
+        return familyService.removeUserFromFamily(jf.getFamilyId(), jf.getUserId());
+
+    }
 
 
 
